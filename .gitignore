@@ -1,0 +1,41 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# VS Code
+.vscode/
+
+# IDE specific
+.idea/
+
+# Logs
+*.log
+
+# Environment files (you may want to ignore this for security)
+.env
+
+# Database (if you use sqlite for dev)
+*.db
+
+# MacOS
+.DS_Store
+
+# Docker
+*.env.dev
+*.env.local
