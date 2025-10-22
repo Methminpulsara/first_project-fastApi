@@ -1,7 +1,10 @@
 from fastapi import FastAPI
-app = FastAPI()
+from app.controller import task_controller
+from app.core.database import Base, engine
 
-@app.get("/")
-def read_root():
-    return {"message": "hello from FastAPI!"}
+# create tables (development only)
+Base.metadata.create_all(bind=engine)
 
+app = FastAPI(title="TaskFlow API")
+
+app.include_router(task_controller.router)
