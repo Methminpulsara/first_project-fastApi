@@ -6,6 +6,7 @@ from app.core.database import SessionLocal
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
+
 def get_db():
     db = SessionLocal()
     try:
@@ -13,13 +14,16 @@ def get_db():
     finally:
         db.close()
 
+
 @router.get("/", response_model=list[TaskOut])
 def read_tasks(db: Session = Depends(get_db)):
     return task_service.get_tasks(db)
 
+
 @router.post("/", response_model=TaskOut)
 def create_new_task(task: TaskCreate, db: Session = Depends(get_db)):
     return task_service.create_task(db, task)
+
 
 @router.put("/{task_id}/complete", response_model=TaskOut)
 def complete_task(task_id: int, db: Session = Depends(get_db)):
