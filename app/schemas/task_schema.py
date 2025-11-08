@@ -8,6 +8,7 @@ class TaskCreate(BaseModel):
 
 class TaskOut(BaseModel):
     id: int
+    user_id: int
     title: str
     description: Optional[str]
     completed: bool

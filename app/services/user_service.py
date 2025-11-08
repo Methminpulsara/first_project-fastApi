@@ -1,8 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from app.repositories import user_repository
-from app.core.security import hash_password, verify_password, create_access_token
-
+from app.core.security import *
 
 def register_user(db: Session, username: str, email: str, password: str):
     existing_user = user_repository.get_user_by_email(db, email)

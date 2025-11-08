@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from app.schemas.task_schema import TaskCreate, TaskOut
 from app.services import task_service
 from app.core.database import SessionLocal
+from app.core.security import get_current_user
+
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
@@ -20,11 +22,10 @@ def read_tasks(db: Session = Depends(get_db)):
     return task_service.get_tasks(db)
 
 
+
 @router.post("/", response_model=TaskOut)
-def create_new_task(task: TaskCreate, db: Session = Depends(get_db)):
-    return task_service.create_task(db, task)
-
-
+def create_task(task: TaskCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
+    return task_service.create_task(db, task, current_user)
 @router.put("/{task_id}/complete", response_model=TaskOut)
 def complete_task(task_id: int, db: Session = Depends(get_db)):
     task = task_service.complete_task(db, task_id)

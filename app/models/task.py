@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime
-from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 class Task(Base):
@@ -7,6 +7,7 @@ class Task(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), nullable=False)
-    description = Column(String(500), nullable=True)
     completed = Column(Boolean, default=False)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    user_id = Column(Integer, ForeignKey("users.id"))
+
+    user = relationship("User", back_populates="tasks")
